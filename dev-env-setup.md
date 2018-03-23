@@ -38,6 +38,10 @@ There are several options for us to achieve this, but for this course we will us
     
       as seen above.
       
+   __**Note to Linux Users**__
+   
+      - Your port should be `80`, so going to `http://localhost` should work for you
+      
    Step 3 - Click `Open WebStart page` to open the start page of your local web server.
       
    Step 4 - Visit http://localhost:8888/MAMP/index.php?page=phpinfo&language=English and you should see `phpinfo` page
@@ -51,8 +55,10 @@ There are several options for us to achieve this, but for this course we will us
       - On Mac, the web server is serving sites from the directory - `/Applications/MAMP/htdocs/`,
        
       - On Windows the location is `C:\MAMP\htdocs\`
+      
+      - On Linux the location should be `/var/www/` 
 
-      - Go ahead and create your new application folder - `mywebapp` inside the `htdocs` folder.
+      - Go ahead and create your new application folder - `mywebapp` inside the `htdocs` or `/var/www/ (Linux)` folder.
 
       - Create a PHP file - `index.php` inside the created folder `mywebapp`
 
