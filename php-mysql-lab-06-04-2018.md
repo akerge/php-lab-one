@@ -18,6 +18,8 @@ In today's lab, we will try and cover the following:
 
 * Implement login logic in the PHP code
 
+__NOTE__: The application we are working on is the same **mywebapp** (located in this repository) from last lab.
+
 #### Create database
 
 ```mysql
@@ -52,3 +54,4 @@ In today's lab, we will try and cover the following:
   ALTER TABLE `users` CHANGE `phone` `telephone` VARCHAR(20) DEFAULT NULL;
 ```
 
+#### 
