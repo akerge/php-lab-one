@@ -20,13 +20,13 @@ In today's lab, we will try and cover the following:
 
 __NOTE__: The application we are working on is the same **mywebapp** (located in this repository) from last lab.
 
-#### Create database
+#### 1. Create database
 
 ```mysql
   CREATE DATABASE IF NOT EXISTS `icd0007_app_db`;
 ```
 
-#### Create a table in the database
+#### 2. Create a table in the database
 ```mysql
   CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -44,14 +44,69 @@ __NOTE__: The application we are working on is the same **mywebapp** (located in
 ) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
 ```
 
-#### Add new column
+#### 3. Add new column
 ```mysql
   ALTER TABLE `users` ADD `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP AFTER `is_admin`;
 ```
 
-#### Rename phone column
+#### 4. Rename phone column
 ```mysql
   ALTER TABLE `users` CHANGE `phone` `telephone` VARCHAR(20) DEFAULT NULL;
+  
+  -- Also, we want to make sure email and phone number is unique
+  ALTER TABLE `users` ADD UNIQUE( `email`, `telephone`);
 ```
 
-#### 
+Now, let's head to our PHP app.
+
+#### 5. Create a connection class
+
+Going forward, we need to have a better code organization to avoid having scattered code all around.
+
+i. Inside your project folder, create this folder structure `application/database`
+
+ii. Create the connection class file `DatabaseConnection.php` in the folder `application/database`
+
+```php
+  <?php
+
+  /**
+   * Class DatabaseConnection
+   *
+   * This class establish connection to the MySQL database
+   */
+  class DatabaseConnection
+  {
+      public function getConnection()
+    {
+        $host = '127.0.0.1';
+        $port = '8889';
+        $user = 'root';
+        $password = '';
+        $database = 'icd0007_app_db';
+
+        // optional
+        $opt = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // set the PDO error mode to exception
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Specifies that the fetch method shall return each row as an array
+        ];
+
+        // We are putting the connection code inside a try and catch block
+        // This will allow us to handle any problem that may occur
+        try {
+            $dsn = "mysql:host={$host};port={$port};dbname={$database};charset=utf8mb4";
+            $pdo = new PDO($dsn, $user, $password, $opt);
+
+            return $pdo;
+        } catch (PDOException $exception) {
+            print_r($exception->getMessage());
+        }
+
+        // if the code execution reached here, it means an error has occurred, so we will return null
+        // to indicate to the caller of this method that the pdo object is null/empty
+        return null;
+    }
+  }
+```
+
+In the code above, we are using the [PHP Data Objects (PDO) extension](http://php.net/manual/en/intro.pdo.php) - which defines a lightweight, consistent interface for accessing databases in PHP.
