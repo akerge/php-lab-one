@@ -200,7 +200,7 @@ Put the code below after the `$pdo = $dbConn->getConnection();` in `registerHand
 
 iv. Go to `main.js` file
 
-* Replace the `url` to point to `/mywebapp/application/registerHandler.php`, since we change the project structure
+* Replace the `url` to point to `/mywebapp/application/registerHandler.php`, since we changed the project structure
 
 * Fill the registration form, submit and check the table `users` in the db, to verify that the data was inserted correctly.
 
