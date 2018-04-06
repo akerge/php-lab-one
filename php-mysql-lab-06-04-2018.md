@@ -59,13 +59,13 @@ __NOTE__: The application we are working on is the same **mywebapp** (located in
 
 Now, let's head to our PHP app.
 
-#### 5. Create a connection class
-
 Going forward, we need to have a better code organization to avoid having scattered code all around.
 
-i. Inside your project folder, create this folder structure `application/database`
+Inside your project folder, create this folder structure `application/database`
 
-ii. Create the connection class file `DatabaseConnection.php` in the folder `application/database`
+#### 5. Create a connection class
+
+Create the connection class file `DatabaseConnection.php` in the folder `application/database`.
 
 ```php
   <?php
@@ -78,11 +78,12 @@ ii. Create the connection class file `DatabaseConnection.php` in the folder `app
   class DatabaseConnection
   {
       public function getConnection()
-    {
+      {
+        // check you environment setup and update the info below, if needed.
         $host = '127.0.0.1';
         $port = '8889';
         $user = 'root';
-        $password = '';
+        $password = 'root';
         $database = 'icd0007_app_db';
 
         // optional
@@ -110,3 +111,92 @@ ii. Create the connection class file `DatabaseConnection.php` in the folder `app
 ```
 
 In the code above, we are using the [PHP Data Objects (PDO) extension](http://php.net/manual/en/intro.pdo.php) - which defines a lightweight, consistent interface for accessing databases in PHP.
+
+#### 6. Insert registration data into the `users` table
+
+First, let's move the `registerHandler.php` into the `application` folder.
+
+Inside the `registerHandler.php`, we will make use of the `connection class` above, by including `DatabaseConnection.php`.
+
+__NOTE__: Every PHP file that requires us to interact with the database, we will need to include the connection class.
+
+i. At the top of `registerHandler.php` after `<?php`, put the code below
+
+```php
+    require_once ("database/DatabaseConnection.php");
+```
+
+ii. We will end up writing more codes in the `registerHandler.php` file, so it's better to organize similar logics and wrap them in a function, so by now the `registerHandler.php` should look like the code below.
+
+```php
+      require_once ("database/DatabaseConnection.php");
+      
+     /**
+     * This is the function that handles the registration
+     */
+    function register() {
+        $postedData = $_POST['data'];
+
+        $email = $postedData['email'];
+        $firstname = $postedData['firstname'];
+        $lastname = $postedData['lastname'];
+        $password = $postedData['password'];
+        $confirmPassword = $postedData['confirm_password'];
+        $address = $postedData['address'];
+        $city = $postedData['city'];
+        $postcode = $postedData['postcode'];
+        $telephone = $postedData['telephone'];
+
+        // TODO: we should validate our data before inserting to database
+
+        // create PDO connection object
+        $dbConn = new DatabaseConnection();
+        $pdo = $dbConn->getConnection();
+    }
+
+    // call to the register function
+    register();
+```
+
+iii. Next we will write the insert statement and use the `$pdo` object to execute the query.
+
+Put the code below after the `$pdo = $dbConn->getConnection();` in `registerHandler.php`
+
+```php
+    // insert using PDO prepared statement, it helps prevents against sql injection attack (more on that later)
+    $params = [
+        ':firstname' => $firstname,
+        ':lastname' => $lastname,
+        ':password' => password_hash($password, PASSWORD_DEFAULT), // we MUST not store password as plain text
+        ':email' => $email,
+        ':address' => $address,
+        ':city' => $city,
+        ':postal_code' => $postcode,
+        ':telephone' => $telephone,
+    ];
+
+    try {
+        $statement = $pdo->prepare(
+            "INSERT INTO `users` (`firstname`, `lastname`, `password`, `email`, `address`, `city`, `postal_code`, `telephone`) 
+                          VALUES (:firstname, :lastname, :password, :email, :address, :city, :postal_code, :telephone)"
+        );
+
+        $statement->execute($params);
+
+        if ($pdo->lastInsertId()) {
+            return "Registration successful";
+        }
+
+    } catch (PDOException $e) {
+        // usually this error is logged in application log and we should return an error message that's meaninful to user 
+        return $e->getMessage();
+    }
+
+    return "Registration was not successful";
+```
+
+iv. Go to `main.js` file
+
+* Replace the `url` to point to `application/registerHandler.php`, since we change the project structure
+
+* Fill the registration form, submit and check the database table `users` to verify data is inserted.
