@@ -185,6 +185,7 @@ Put the code below after the `$pdo = $dbConn->getConnection();` in `registerHand
 
         if ($pdo->lastInsertId()) {
             echo "Registration successful";
+            return;
         }
 
     } catch (PDOException $e) {
@@ -193,6 +194,8 @@ Put the code below after the `$pdo = $dbConn->getConnection();` in `registerHand
     }
 
     echo "Registration was not successful";
+    
+    return;
 ```
 
 iv. Go to `main.js` file
@@ -207,6 +210,8 @@ iv. Go to `main.js` file
 Now that we have the registered the user, let's implement the login functionality.
 
 __NOTE__: I will skip the changes that we must do in `login.html`, I think you can figure that out.
+
+You should also rename `login.html` to `login.php`.
 
 i. Let's create the PHP script that will handle the login request. Create a file `loginHandler.php` in `application/`
 
