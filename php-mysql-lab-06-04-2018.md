@@ -89,7 +89,7 @@ Create the connection class file `DatabaseConnection.php` in the folder `applica
         // optional
         $opt = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // set the PDO error mode to exception
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Specifies that the fetch method shall return each row as an array
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Specifies that the fetch method should return each row as an array
         ];
 
         // We are putting the connection code inside a try and catch block
@@ -184,15 +184,15 @@ Put the code below after the `$pdo = $dbConn->getConnection();` in `registerHand
         $statement->execute($params);
 
         if ($pdo->lastInsertId()) {
-            return "Registration successful";
+            echo "Registration successful";
         }
 
     } catch (PDOException $e) {
         // usually this error is logged in application log and we should return an error message that's meaninful to user 
-        return $e->getMessage();
+        echo $e->getMessage();
     }
 
-    return "Registration was not successful";
+    echo "Registration was not successful";
 ```
 
 iv. Go to `main.js` file
