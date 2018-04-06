@@ -200,3 +200,16 @@ iv. Go to `main.js` file
 * Replace the `url` to point to `application/registerHandler.php`, since we change the project structure
 
 * Fill the registration form, submit and check the table `users` in the db, to verify that the data was inserted correctly.
+
+
+#### Implement Login functionality
+
+Now that we have the registered the user, let's implement the login functionality.
+
+__NOTE__: I will skip the changes that we must do in `login.html`, I think you can figure that out.
+
+i. Let's create the PHP script that will handle the login request. Create a file `loginHandler.php` in `application/`
+
+```php
+  
+```
