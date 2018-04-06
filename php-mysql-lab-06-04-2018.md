@@ -199,4 +199,4 @@ iv. Go to `main.js` file
 
 * Replace the `url` to point to `application/registerHandler.php`, since we change the project structure
 
-* Fill the registration form, submit and check the database table `users` to verify data is inserted.
+* Fill the registration form, submit and check the table `users` in the db, to verify that the data was inserted correctly.
