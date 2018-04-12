@@ -155,6 +155,16 @@ Also, we are checking if the query result is empty, we do the following:
     }
 ```
 
+We can print the error message somewhere above the form on the login page.
+
+```php
+    <?php
+        if (isset($_SESSION['error_message'])) {
+            echo $_SESSION['error_message'];
+        }
+    ?>
+```
+
 iii. If the query result returns a record, we need to verify if the password that the user entered is valid. 
 
 Here we make use of the php in-build function `password_verify` to do this. 
