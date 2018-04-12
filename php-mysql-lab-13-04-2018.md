@@ -219,9 +219,9 @@ i. Create a file `protected_access_check.php` inside the project folder **myweba
     }
 ```
 
-ii. Now inside the protected pages we will just require `common.php` hence, our `profile.php` should be replace with the code 
+ii. Inside all our protected pages we will just require `protected_access_check.php` hence, our `profile.php`
 
-below
+should be replace with the code below:
 
 ```php
     require_once ('protected_access_check.php');
