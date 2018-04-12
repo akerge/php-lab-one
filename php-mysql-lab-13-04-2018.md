@@ -112,7 +112,7 @@ database connecton class.
 
 #### c. Unset session variables
 
-We will come back to explain this later.
+For every request to this handler, we should clear existing `message session variables`.
 
 ```php
   unset($_SESSION['success_message']);
@@ -150,7 +150,7 @@ Also, we are checking if the query result is empty, we do the following:
     // no user matching the email
     if (empty($result)) {
         $_SESSION['error_message'] = 'Invalid email / password!';
-        header('Location: /mywebapp/profile.php');
+        header('Location: /mywebapp/login.php');
         return;
     }
 ```
@@ -187,3 +187,46 @@ Lastly we redirect user to profile page, which is a protected page - user should
     }
 ```
 
+### 2. Access to protected page
+
+Create a new page `profile.php` insidie the **mywebapp** project directory.
+
+```php
+    
+    if ($_SESSION['isLoggedIn'] !== true) {
+        $_SESSION['error_message'] = 'You must be logged in!';
+        header('Location: /mywebapp/login.php');
+        return;
+    }
+    
+    echo 'Now I can access the profile page' . <br>;
+    
+    echo 'User ID stored in session is - ' . $_SESSION['userID'];
+```
+
+Imagine we have hundreds of pages to protect, we can easily reuse the code in all the pages by extracting the code
+
+in the if block to a file and then require the file on all the protected pages.
+
+i. Create a file `protected_access_check.php` inside the project folder **mywebapp** and put the code below.
+
+```php
+    session_start();
+    
+    if ($_SESSION['isLoggedIn'] !== true) {
+        $_SESSION['error_message'] = 'You must be logged in!';
+        header('Location: /mywebapp/login.php');
+    }
+```
+
+ii. Now inside the protected pages we will just require `common.php` hence, our `profile.php` should be replace with the code 
+
+below
+
+```php
+    require_once ('protected_access_check.php');
+    
+    echo 'Now I can access the profile page' . <br>;
+    
+    echo 'User ID stored in session is - ' . $_SESSION['userID'];
+```
