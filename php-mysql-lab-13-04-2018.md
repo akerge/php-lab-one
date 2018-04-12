@@ -24,7 +24,7 @@ We will cover the following:
 
 * User Logout
 
-#### 1. Implement Login functionality
+### 1. Implement Login functionality
 
 Now that we have the registered the user, let's implement the login functionality.
 
@@ -93,7 +93,7 @@ login();
 
 Let's break the code block down a bit and look at some important parts.
 
-##### Session
+#### a. Session
 
 ```php
   session_start();
@@ -101,7 +101,7 @@ Let's break the code block down a bit and look at some important parts.
 
 When user logged in, we should keep some information about the user as session variable. So we need to start the session.
 
-#### Database connection
+#### b. Database connection
 
 ```php
   require_once ("database/DatabaseConnection.php");
@@ -111,7 +111,7 @@ Since we need to retrieve user data from the database, we have to require the da
 
 database connecton class.
 
-#### Unset session variables
+#### c. Unset session variables
 
 We will come back to explain this later.
 
@@ -119,3 +119,22 @@ We will come back to explain this later.
   unset($_SESSION['success_message']);
   unset($_SESSION['error_message']);
 ```
+
+#### d. Login function
+
+```php
+    // create PDO connection object
+    $dbConn = new DatabaseConnection();
+    $pdo = $dbConn->getConnection();
+```
+Here we are creating an instance of the `DatabaseConnection` class so that we can access its `public properties`.
+
+```php
+        $statement = $pdo->prepare("SELECT * FROM `users` WHERE email = :email LIMIT 1");
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $userData = $result[0];
+```
+
