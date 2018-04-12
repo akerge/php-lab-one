@@ -18,7 +18,7 @@
             </div>
             <div class="right marT10">
                 <b>
-                    <a href="/mywebapp/login.html">Login</a> | <a href="/mywebapp/register.html">Register</a>
+                    <a href="/mywebapp/login.php">Login</a> | <a href="/mywebapp/register.html">Register</a>
                 </b>
             </div>
             <br><br>
@@ -40,7 +40,7 @@
                 <br/>
 
                 <b>Please enter your information.</b><br/><br/>
-                <form action="" method="">
+                <form action="/mywebapp/application/loginHandler.php" method="POST">
                     <p>
                         <label>Email: </label>
                         <input type="text" name="data[email]" />
