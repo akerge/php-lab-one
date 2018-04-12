@@ -1,6 +1,30 @@
 ## PHP & MySQL Lab - 13-04-2018
 
-#### 7. Implement Login functionality
+Today, we will continue from where we stopped in our last [lab session](./php-mysql-lab-06-04-2018.md). 
+
+We have implemented the **user registration**, the next thing is to allow the user to login using the `email` and `password` 
+
+provided during the registration.
+
+We will cover the following:
+
+* Update login form to handle form submission
+
+* Implement login handling logic
+
+* Use SQL query to retrieve user information that matches login credentials
+
+* Verify password
+
+* Handling Session
+
+* Access to protected page 
+
+* Navigation across pages when logged in
+
+* User Logout
+
+#### 1. Implement Login functionality
 
 Now that we have the registered the user, let's implement the login functionality.
 
