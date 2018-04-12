@@ -75,9 +75,8 @@ function login() {
             $_SESSION['isLoggedIn'] = true;
             $_SESSION['userID'] = $userData['id'];
             $_SESSION['success_message'] = 'User successfully';
-            header('Location: /mywebapp/login.php');
+            header('Location: /mywebapp/profile.php');
 
-            unset($_SESSION['error_message']);
             return;
         }
     } catch (PDOException $exception) {
@@ -122,19 +121,69 @@ We will come back to explain this later.
 
 #### d. Login function
 
+i. Here we are creating an instance of the `DatabaseConnection` class so that we can access its `public properties`.
+
 ```php
     // create PDO connection object
     $dbConn = new DatabaseConnection();
     $pdo = $dbConn->getConnection();
 ```
-Here we are creating an instance of the `DatabaseConnection` class so that we can access its `public properties`.
+
+ii. Below, we are using the `pdo` object to execute the query to retrieve the user with the given email.
+
+Also, we are checking if the query result is empty, we do the following: 
+
+- We create a session variable to hold the error message - 
+
+  `$_SESSION['error_message'] = 'Invalid email / password!';`, so that we can display this error message to the user.
+
+- We redirect the user back to login page - `header('Location: /mywebapp/login.php');`
 
 ```php
-        $statement = $pdo->prepare("SELECT * FROM `users` WHERE email = :email LIMIT 1");
-        $statement->bindParam(':email', $email);
-        $statement->execute();
+    $statement = $pdo->prepare("SELECT * FROM `users` WHERE email = :email LIMIT 1");
+    $statement->bindParam(':email', $email);
+    $statement->execute();
 
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        $userData = $result[0];
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $userData = $result[0];
+    
+    // no user matching the email
+    if (empty($result)) {
+        $_SESSION['error_message'] = 'Invalid email / password!';
+        header('Location: /mywebapp/profile.php');
+        return;
+    }
+```
+
+iii. If the query result returns a record, we need to verify if the password that the user entered is valid. 
+
+Here we make use of the php in-build function `password_verify` to do this. 
+
+Function `password_verify` returns `true` if the password entered, matches the password hash that was retrieved 
+
+from the query result.
+
+Then we set the session variables - 
+
+- `$_SESSION['isLoggedIn'] to true;`
+
+- `$_SESSION['userID'] to $userData['id'] from the query result`
+
+- `$_SESSION['success_message'] to hold login success message`
+
+Lastly we redirect user to profile page, which is a protected page - user should only see this when they are logged in.
+
+```php
+    $userEncryptedPassword = $userData['password'];
+
+    // verify the incoming password with encrypted password
+    if (password_verify($password, $userEncryptedPassword)) {
+        $_SESSION['isLoggedIn'] = true;
+        $_SESSION['userID'] = $userData['id'];
+        $_SESSION['success_message'] = 'User successfully';
+        header('Location: /mywebapp/profile.php');
+
+        return;
+    }
 ```
 
