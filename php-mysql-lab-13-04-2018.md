@@ -10,7 +10,7 @@ We will cover the following:
 
 * Update login form to handle form submission
 
-* Implement login handling logic
+* Implement login handler logic
 
 * Use SQL query to retrieve user information that matches login credentials
 
@@ -35,7 +35,7 @@ You should also rename `login.html` to `login.php`.
 i. Let's create the PHP script that will handle the login request. Create a file `loginHandler.php` in `application/`
 
 ```php
-  session_start();
+session_start();
 
 require_once ("database/DatabaseConnection.php");
 
@@ -89,4 +89,33 @@ function login() {
 }
 
 login();
+```
+
+Let's break the code block down a bit and look at some important parts.
+
+##### Session
+
+```php
+  session_start();
+```
+
+When user logged in, we should keep some information about the user as session variable. So we need to start the session.
+
+#### Database connection
+
+```php
+  require_once ("database/DatabaseConnection.php");
+```
+
+Since we need to retrieve user data from the database, we have to require the database connection file which holds the
+
+database connecton class.
+
+#### Unset session variables
+
+We will come back to explain this later.
+
+```php
+  unset($_SESSION['success_message']);
+  unset($_SESSION['error_message']);
 ```
