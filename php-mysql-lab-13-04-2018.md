@@ -319,6 +319,8 @@ The profile page looks like this
 
 #### Logout
 
+Create a new file `logout.php` and put the code below.
+
 ```php
 <?php
 
