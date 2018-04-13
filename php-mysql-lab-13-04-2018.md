@@ -316,3 +316,16 @@ Put the code below at the beginning of `profile.php`.
 The profile page looks like this
 
 ![Alt text](./profile_page.png)
+
+#### Logout
+
+```php
+<?php
+
+session_start();
+
+session_unset();
+session_destroy();
+
+header('Location: /mywebapp/login.php');
+``
