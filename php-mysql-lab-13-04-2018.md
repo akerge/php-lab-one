@@ -312,3 +312,7 @@ Put the code below at the beginning of `profile.php`.
       require_once ('protected_access_check.php');
    ?>
 ```
+
+The profile page looks like this
+
+![Alt text](./profile_page.png)
