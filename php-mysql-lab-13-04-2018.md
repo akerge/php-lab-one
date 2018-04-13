@@ -202,7 +202,7 @@ Lastly we redirect user to profile page, which is a protected page - user should
 Create a new page `profile.php` insidie the **mywebapp** project directory.
 
 ```php
-    
+    <?php
     if ($_SESSION['isLoggedIn'] !== true) {
         $_SESSION['error_message'] = 'You must be logged in!';
         header('Location: /mywebapp/login.php');
@@ -221,6 +221,7 @@ in the if block to a file and then require the file on all the protected pages.
 i. Create a file `protected_access_check.php` inside the project folder **mywebapp** and put the code below.
 
 ```php
+    <?php
     session_start();
     
     if ($_SESSION['isLoggedIn'] !== true) {
@@ -234,6 +235,7 @@ ii. Inside all our protected pages we will just require `protected_access_check.
 Replace the code inside `profile.php` with the one below:
 
 ```php
+    <?php
     require_once ('protected_access_check.php');
     
     echo 'Now I can access the profile page' . <br>;
