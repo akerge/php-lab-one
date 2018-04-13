@@ -251,7 +251,7 @@ Replace the code inside `profile.php` with the one below:
     
     require_once ('protected_access_check.php');
     
-    echo 'Now I can access the profile page' . <br>;
+    echo 'Now I can access the profile page <br>';
     
     echo 'User ID stored in session is - ' . $_SESSION['userID'];
 ```
