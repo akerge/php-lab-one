@@ -209,24 +209,84 @@ Lastly we redirect user to profile page, which is a protected page - user should
 
 ### 2. Access to protected page
 
-Create a new page `profile.php` insidie the **mywebapp** project directory.
+Create a new page `profile.php` insidie the **mywebapp** project directory and put the content below.
 
 ```php
     <?php
-    if ($_SESSION['isLoggedIn'] !== true) {
-        $_SESSION['error_message'] = 'You must be logged in!<br>';
-        header('Location: /mywebapp/login.php');
-        return;
-    }
+        if ($_SESSION['isLoggedIn'] !== true) {
+            $_SESSION['error_message'] = 'You must be logged in!<br>';
+            header('Location: /mywebapp/login.php');
+            return;
+        }
+    ?>
     
-    echo 'Now I can access the profile page' . <br>;
-    
-    echo 'User ID stored in session is - ' . $_SESSION['userID'];
+    <!DOCTYPE HTML>
+    <html>
+    <head>
+        <title>::Profile::</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="stylesheet" href="/mywebapp/css/main.css" type="text/css">
+        <link rel="shortcut icon" href="/mywebapp/images/favicon.ico?v=2" type="image/x-icon"/>
+    </head>
+    <body>
+    <div id="wrapper">
+        <div id="maincontent">
+
+            <div id="header">
+                <div id="logo" class="left">
+                    <a href="/mywebapp">ICD0007</a>
+                </div>
+                <div class="right marT10">
+                    <b>
+                        <a href="/mywebapp/logout.php">Logout</a>
+                    </b>
+                </div>
+                <br><br>
+                <ul class="topmenu">
+                    <li><a href="/mywebapp">Home</a></li>
+                    <li><a href="/mywebapp">Student Lists</a></li>
+                    <li><a href="/mywebapp">Contact Us</a></li>
+                </ul>
+                <br>
+                <div class="banner"><p></p></div>
+                <br class="clear"/>
+            </div>
+
+            <div class="content">
+                <br/>
+                <div class="content-area">
+
+                    <h2>Profile</h2>
+                    <?php
+                        echo 'Now I can access the profile page<br>';
+
+                        echo 'User ID stored in session is - ' . $_SESSION['userID'];
+                    ?>
+                </div>
+            </div>
+
+        </div><!-- maincontent -->
+        <br>
+        <div id="footer">
+            <div class="footer">
+                Copyright &copy; 2018 ICD0007. <br/>
+                <a href="/mywebapp">Home</a> | <a href="about">About Us</a> | <a href="contact">Contact Us</a> <br/>
+                <span class="contact">Tel: +372-1111111&nbsp;
+                Email:icd007@icd0007.com</span>
+            </div>
+        </div><!-- footer -->
+
+    </div><!-- wrapper -->
+
+    </body>
+    </html>
 ```
 
 Imagine we have hundreds of pages to protect, we can easily reuse the code in all the pages by extracting the code
 
-in the if block to a file and then require the file on all the protected pages.
+in the `if` block to a file and then require the file on all the protected pages.
 
 i. Create a file `protected_access_check.php` inside the project folder **mywebapp** and put the code below.
 
@@ -238,20 +298,17 @@ i. Create a file `protected_access_check.php` inside the project folder **myweba
         $_SESSION['error_message'] = 'You must be logged in!';
         header('Location: /mywebapp/login.php');
     }
+    ?>
+    
+    
 ```
 
 ii. Inside all our protected pages we will just require `protected_access_check.php`.
 
-Replace the code inside `profile.php` with the one below:
+Put the code below at the beginning of `profile.php`.
 
 ```php
-    <?php
-    
-    session_start();
-    
-    require_once ('protected_access_check.php');
-    
-    echo 'Now I can access the profile page <br>';
-    
-    echo 'User ID stored in session is - ' . $_SESSION['userID'];
+   <?php
+      require_once ('protected_access_check.php');
+   ?>
 ```
