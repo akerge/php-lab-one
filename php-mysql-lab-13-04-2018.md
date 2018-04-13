@@ -165,6 +165,16 @@ We can print the error message somewhere above the form on the login page.
     ?>
 ```
 
+Before the code above will work in the `login.php` page, we need to start the session.
+
+Put the code below at the beginning of `login.php` page. 
+
+```php
+    <?php
+        session_start();
+    ?>
+```
+
 iii. If the query result returns a record, we need to verify if the password that the user entered is valid. 
 
 Here we make use of the php in-build function `password_verify` to do this. 
@@ -236,6 +246,9 @@ Replace the code inside `profile.php` with the one below:
 
 ```php
     <?php
+    
+    session_start();
+    
     require_once ('protected_access_check.php');
     
     echo 'Now I can access the profile page' . <br>;
