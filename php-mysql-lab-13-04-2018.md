@@ -214,7 +214,7 @@ Create a new page `profile.php` insidie the **mywebapp** project directory.
 ```php
     <?php
     if ($_SESSION['isLoggedIn'] !== true) {
-        $_SESSION['error_message'] = 'You must be logged in!';
+        $_SESSION['error_message'] = 'You must be logged in!<br>';
         header('Location: /mywebapp/login.php');
         return;
     }
