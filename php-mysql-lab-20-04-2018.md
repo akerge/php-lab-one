@@ -383,3 +383,7 @@ v. Modify function `update()` to save uploaded image path to `users` table.
             die();
         }
 ```
+
+### Debug
+
+Check this file for errors - `MAMP/logs/php_error.log`
