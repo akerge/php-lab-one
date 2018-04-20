@@ -91,7 +91,7 @@ require_once ('application/models/User.php');
                     <p>
                 </form>
                 <div id="profileImage">
-                    <img src="uploads/<?= $userData['profile_avatar'] ?>">
+                    <img src="uploads/<?= $userData['profile_avatar'] ?>" width="300px" height="280px">
                 </div>
             </div>
         </div>
