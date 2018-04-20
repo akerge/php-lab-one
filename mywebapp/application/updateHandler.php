@@ -69,7 +69,7 @@ function uploadImage()
     }
 
     $target_dir = __DIR__ . "/../uploads/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $target_file = basename($_FILES["fileToUpload"]["name"]);
 
     // Check if image file is a actual image or fake image
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -91,7 +91,7 @@ function uploadImage()
         "gif",
     ];
 
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    $imageFileType = strtolower(pathinfo($target_dir . $target_file, PATHINFO_EXTENSION));
 
     // Allow certain file formats
     if(!in_array($imageFileType, $allowedFileType)) {
@@ -99,8 +99,8 @@ function uploadImage()
         return false;
     }
 
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-         return $target_dir . $target_file;
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . $target_file)) {
+        return $target_file;
     } else {
         $_SESSION['error_message'] = "Sorry, there was an error uploading your file.";
         return false;
@@ -109,5 +109,6 @@ function uploadImage()
 
 unset($_SESSION['success_message']);
 unset($_SESSION['error_message']);
+
 // call to the update function
 update();
