@@ -364,6 +364,8 @@ v. Modify function `update()` to save uploaded image path to `users` table.
 
 
 ```php
+    $uploadedImage = uploadImage();
+    
     if ($uploadedImage === false) {
             $params[':profile_avatar'] = null;
         } else {
