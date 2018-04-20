@@ -96,7 +96,7 @@ So, create a new folder `models` inside our project `mywebapp/application/models
 
       session_start();
 
-      require_once ('../database/DatabaseConnection.php');
+      require_once (__DIR__ . '/../database/DatabaseConnection.php');
 
       /**
        * Class User
