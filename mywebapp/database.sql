@@ -24,18 +24,19 @@ USE `icd0007_lab_db`;
 --
 
 CREATE TABLE `users` (
-  `id` int(8) UNSIGNED ZEROFILL NOT NULL,
-  `name` varchar(256) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
-  `address` varchar(256) NOT NULL,
-  `student_id` varchar(64) NOT NULL,
-  `faculty` varchar(64) NOT NULL,
-  `department` varchar(64) NOT NULL,
-  `city` char(32) NOT NULL,
-  `postal_code` char(10) NOT NULL,
-  `phone` char(16) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ICD0007 Students';
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users` ADD PRIMARY KEY (`id`);
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `address` text,
+  `city` varchar(64) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `postal_code` varchar(15) NOT NULL,
+  `telephone` varchar(20) DEFAULT NULL,
+  `is_admin` tinyint(1) unsigned DEFAULT '0' COMMENT 'A flag to indicate if a user is an admin (1 - admin, 0 - regular user)',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `profile_avatar` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`,`telephone`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
