@@ -1,6 +1,10 @@
 <?php
 require_once ('protected_access_check.php');
 require_once ('application/models/User.php');
+
+/**
+ * @var $userData User
+ */
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -39,13 +43,48 @@ require_once ('application/models/User.php');
         <div class="content">
             <br/>
             <div class="content-area">
-
-                <h2>Profile</h2>
+                <h2>Update profile</h2>
+                <br/>
                 <?php
-                    echo 'Now I can access the profile page<br>';
-
-                    echo 'User ID stored in session is - ' . $_SESSION['userID'];
+                if (isset($_SESSION['error_message'])) {
+                    echo '<p>' . $_SESSION['error_message'] . '</p>';
+                } elseif (isset($_SESSION['success_message'])) {
+                    echo '<p>' . $_SESSION['success_message'] . '</p>';
+                }
                 ?>
+                <form id="updateForm" action="" method="POST">
+                    <p>
+                        <label>Email: </label>
+                        <input type="text" name="data[email]" value="<?= $userData['email']; ?>"/>
+                    <p>
+                    <p>
+                        <label>First Name: </label>
+                        <input type="text" name="data[firstname]" value="<?= $userData['firstname']; ?>"/>
+                    <p>
+                    <p>
+                        <label>Last Name: </label>
+                        <input type="text" name="data[lastname]" value="<?= $userData['lastname']; ?>"/>
+                    <p>
+                    <p>
+                        <label>Address: </label>
+                        <textarea name="data[address]"><?= $userData['address']; ?></textarea>
+                    <p>
+                    <p>
+                        <label>City: </label>
+                        <input type="text" name="data[city]" value="<?= $userData['city']; ?>"/>
+                    <p>
+                    <p>
+                        <label>Postcode: </label>
+                        <input type="text" name="data[postcode]" value="<?= $userData['postal_code']; ?>"/>
+                    <p>
+                    <p>
+                        <label>Telephone: </label>
+                        <input type="text" name="data[telephone]" value="<?= $userData['telephone']; ?>"/>
+                    <p>
+                    <p>
+                        <input type="submit" name="btnSubmit" value="Update profile" class="button marL10"/>
+                    <p>
+                </form>
             </div>
         </div>
 
