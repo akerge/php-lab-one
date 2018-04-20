@@ -52,7 +52,8 @@ require_once ('application/models/User.php');
                     echo '<p>' . $_SESSION['success_message'] . '</p>';
                 }
                 ?>
-                <form id="updateForm" action="" method="POST">
+                <form id="updateForm" action="application/updateHandler.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="data[id]" value="<?= $userData['id']; ?>"/>
                     <p>
                         <label>Email: </label>
                         <input type="text" name="data[email]" value="<?= $userData['email']; ?>"/>
@@ -82,9 +83,16 @@ require_once ('application/models/User.php');
                         <input type="text" name="data[telephone]" value="<?= $userData['telephone']; ?>"/>
                     <p>
                     <p>
+                        <label>Profile Picture: </label>
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                    <p>
+                    <p>
                         <input type="submit" name="btnSubmit" value="Update profile" class="button marL10"/>
                     <p>
                 </form>
+                <div id="profileImage">
+                    <img src="<?= $userData['profile_avatar'] ?>">
+                </div>
             </div>
         </div>
 
