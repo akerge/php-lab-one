@@ -303,50 +303,55 @@ iii. We need to write the php code to handle the image upload
 Inside the `updateHandler.php`, add a new function below
 
 ```php
-    /**
-     * @return string
-     */
-    function uploadImage()
-    {
-        // no file selected
-        if(empty($_FILES["fileToUpload"]['name'])) {
-            return '';
-        }
-
-        $target_dir = __DIR__ . "/../uploads/";
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
-        // Check if image file is a actual image or fake image
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if($check === false) {
-            return "Invalid image file.";
-        }
-
-        // Check file size
-        if ($_FILES["fileToUpload"]["size"] > 500000) {
-            return "Sorry, your file is too large.";
-        }
-
-        $allowedFileType = [
-            "jpg",
-            "png",
-            "jpeg",
-            "gif",
-        ];
-
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-        // Allow certain file formats
-        if(!in_array($imageFileType, $allowedFileType)) {
-            return "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        }
-
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-             return $target_dir . $target_file;
-        } else {
-           return "Sorry, there was an error uploading your file.";
-        }
+    
+/**
+ * @return string
+ */
+function uploadImage()
+{
+    // no file selected
+    if(empty($_FILES["fileToUpload"]['name'])) {
+        return '';
     }
+
+    $target_dir = __DIR__ . "/../uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+
+    // Check if image file is a actual image or fake image
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check === false) {
+        $_SESSION['error_message'] = "Invalid image file.";
+        return false;
+    }
+
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        $_SESSION['error_message'] = "Sorry, your file is too large.";
+        return false;
+    }
+
+    $allowedFileType = [
+        "jpg",
+        "png",
+        "jpeg",
+        "gif",
+    ];
+
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // Allow certain file formats
+    if(!in_array($imageFileType, $allowedFileType)) {
+        $_SESSION['error_message'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        return false;
+    }
+
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+         return $target_dir . $target_file;
+    } else {
+        $_SESSION['error_message'] = "Sorry, there was an error uploading your file.";
+        return false;
+    }
+}
 ```
 
 iv. Now that the image is upload, we need to store the image path to a column in `users` table, so let's create the new column
