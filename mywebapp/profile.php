@@ -1,10 +1,11 @@
 <?php
-session_start();
+require_once ('protected_access_check.php');
+require_once ('application/models/User.php');
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>::Login::</title>
+    <title>::Profile::</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -21,7 +22,7 @@ session_start();
             </div>
             <div class="right marT10">
                 <b>
-                    <a href="/mywebapp/login.php">Login</a> | <a href="/mywebapp/register.html">Register</a>
+                    <a href="/mywebapp/logout.php">Logout</a>
                 </b>
             </div>
             <br><br>
@@ -39,29 +40,12 @@ session_start();
             <br/>
             <div class="content-area">
 
-                <h2>Login</h2>
-                <br/>
+                <h2>Profile</h2>
+                <?php
+                    echo 'Now I can access the profile page<br>';
 
-                <b>Please enter your information.</b><br/><br/>
-                <form action="/mywebapp/application/loginHandler.php" method="POST">
-                    <?php
-                        if (isset($_SESSION['error_message'])) {
-                            echo '<p>' . $_SESSION['error_message'] . '</p>';
-                        }
-                     ?>
-                    <p>
-                        <label>Email: </label>
-                        <input type="text" name="data[email]" />
-                    </p>
-                    <p>
-                        <label>Password: </label>
-                        <input type="password" name="data[password]" />
-                    <p>
-                    <p>
-                        <input type="reset" name="data[clear]" value="Clear" class="button"/>
-                        <input type="submit" name="data[submit]" value="Submit" class="button marL10"/>
-                    </p>
-                </form>
+                    echo 'User ID stored in session is - ' . $_SESSION['userID'];
+                ?>
             </div>
         </div>
 
@@ -80,3 +64,4 @@ session_start();
 
 </body>
 </html>
+
