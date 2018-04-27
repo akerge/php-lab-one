@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>::Login::</title>
+    <title>::Reset Password::</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
@@ -39,36 +39,26 @@ session_start();
             <br/>
             <div class="content-area">
 
-                <h2>Login</h2>
+                <h2>Reset Password</h2>
                 <br/>
 
-                <b>Please enter your information.</b><br/><br/>
-                <form action="/mywebapp/application/loginHandler.php" method="POST">
+                <form action="/mywebapp/application/resetPasswordHandler.php" method="POST">
                     <?php
                         if (isset($_SESSION['error_message'])) {
                             echo '<p>' . $_SESSION['error_message'] . '</p>';
                         }
-                        if (isset($_SESSION['success_message'])) {
-                            echo '<p>' . $_SESSION['success_message'] . '</p>';
-                        }
+                    if (isset($_SESSION['success_message'])) {
+                        echo '<p>' . $_SESSION['success_message'] . '</p>';
+                    }
                      ?>
                     <p>
                         <label>Email: </label>
                         <input type="text" name="data[email]" />
                     </p>
                     <p>
-                        <label>Password: </label>
-                        <input type="password" name="data[password]" />
-                    <p>
-                    <p>
-                        <input type="submit" name="data[submit]" value="Submit" class="button marL10"/>
+                        <input type="submit" name="data[submit]" value="Reset Password" class="button marL10"/>
                     </p>
                 </form>
-
-                <br>
-                <br>
-                <br>
-                <a href="resetpassword.php">Forgot password</a>
             </div>
         </div>
 

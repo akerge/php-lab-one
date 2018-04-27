@@ -1,0 +1,9 @@
+{
+    "name": "icd0007/mywebapp",
+    "description": "Project for ICD0007 Course",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "6.0"
+    },
+    "license": "MIT"
+}

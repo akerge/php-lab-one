@@ -1,6 +1,7 @@
 <?php
 
 require_once ("database/DatabaseConnection.php");
+require_once ("mailSender.php");
 
 /**
  * This is the function that handles the registration
@@ -46,6 +47,11 @@ function register() {
 
         if ($pdo->lastInsertId()) {
             echo "Registration successful";
+            sendMail(
+                "Registration was successful",
+                "Hello {$firstname}, Welcome to ICD0007 Web App, you registration was successful!",
+                $email
+            );
             return;
         }
 
