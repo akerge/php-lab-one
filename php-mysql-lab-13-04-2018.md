@@ -331,3 +331,4 @@ session_destroy();
 
 header('Location: /mywebapp/login.php');
 ```
+[Previuos Lab](https://github.com/ICD0007/php-lab-one/blob/master/php-mysql-lab-06-04-2018.md)|[Next Lab](https://github.com/ICD0007/php-lab-one/blob/master/php-mysql-lab-20-04-2018.md)
