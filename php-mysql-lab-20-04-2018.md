@@ -394,3 +394,5 @@ v. Modify function `update()` to save uploaded image path to `users` table.
 ### Debug
 
 Check this file for errors - `MAMP/logs/php_error.log`
+
+[Previous Lab](https://github.com/ICD0007/php-lab-one/blob/master/php-mysql-lab-13-04-2018.md) | [Next Lab](https://github.com/ICD0007/php-lab-one/blob/master/php-lab-27-04-2017.md)
