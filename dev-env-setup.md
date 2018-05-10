@@ -14,7 +14,7 @@ There are several options for us to achieve this, but for this course we will us
         
       - or `php -S localhost:8000 -t `/full/path/to/webapp/public/folder`
 
-2. [Download MAMP](https://www.mamp.info/en/downloads/) (__**Recommended**__) - It works on both Windows and Mac operating systems. On Linux add AMP [Apache+MySQL+PHP](https://help.ubuntu.com/community/ApacheMySQLPHP)
+2. [Download MAMP](https://www.mamp.info/en/downloads/) (__**Recommended**__) - It works on both Windows and Mac operating systems. ~~On Linux add AMP [Apache+MySQL+PHP](https://help.ubuntu.com/community/ApacheMySQLPHP)~~ MAMP works only on windows/mac and is incompatible on linux – relative paths in cloned repos start with forward slash (which resolves to root dir).
 
    Once installed you will have **PHP**, **MySQL** and **PhpMyAdmin** ready for use on your machine.
    
